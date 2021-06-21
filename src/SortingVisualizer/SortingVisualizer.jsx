@@ -9,10 +9,10 @@ const ANIMATION_SPEED_MS = 1;
 const NUMBER_OF_ARRAY_BARS = 310;
 
 // This is the main color of the array bars.
-const PRIMARY_COLOR = 'turquoise';
+const PRIMARY_COLOR = '#fff';
 
 // This is the color of array bars that are being compared throughout the animations.
-const SECONDARY_COLOR = 'red';
+const SECONDARY_COLOR = '#ff3131';
 
 export default class SortingVisualizer extends React.Component {
 	constructor(props) {
@@ -71,7 +71,24 @@ export default class SortingVisualizer extends React.Component {
 		const { array } = this.state;
 
 		return (
-			<div className="main">
+			<div className="hero">
+				<nav className="navbar">
+					<button className="btn" onClick={() => this.resetArray()}>
+						Generate New Array
+					</button>
+					<button className="btn" onClick={() => this.bubbleSort()}>
+						Bubble Sort
+					</button>
+					<button className="btn" onClick={() => this.heapSort()}>
+						Heap Sort
+					</button>
+					<button className="btn" onClick={() => this.mergeSort()}>
+						Merge Sort
+					</button>
+					<button className="btn" onClick={() => this.quickSort()}>
+						Quick Sort
+					</button>
+				</nav>
 				<div className="array-container">
 					{array.map((value, idx) => (
 						<div
@@ -81,11 +98,6 @@ export default class SortingVisualizer extends React.Component {
 						/>
 					))}
 				</div>
-				<button onClick={() => this.resetArray()}>Generate New Array</button>
-				<button onClick={() => this.bubbleSort()}>Bubble Sort</button>
-				<button onClick={() => this.heapSort()}>Heap Sort</button>
-				<button onClick={() => this.mergeSort()}>Merge Sort</button>
-				<button onClick={() => this.quickSort()}>Quick Sort</button>
 			</div>
 		);
 	}
