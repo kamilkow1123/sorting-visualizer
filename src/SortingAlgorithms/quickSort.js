@@ -20,13 +20,13 @@ const partition = (array, left, right, animations) => {
 	for (let j = left; j <= right - 1; j++) {
 		if (array[j] < pivot) {
 			i++;
-			animations.push([ i, j ]);
+			animations.push([ i, j, array[i], array[j] ]);
 			let temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
 		}
 	}
-	animations.push([ i + 1, right ]);
+	animations.push([ i + 1, right, array[i + 1], array[right] ]);
 	let temp = array[i + 1];
 	array[i + 1] = array[right];
 	array[right] = temp;

@@ -13,7 +13,7 @@ const heapSort = (array, animations) => {
 	}
 
 	for (let i = n - 1; i > 0; i--) {
-		animations.push([ 0, i ]);
+		animations.push([ 0, i, array[0], array[i] ]);
 		let temp = array[0];
 		array[0] = array[i];
 		array[i] = temp;
@@ -32,7 +32,7 @@ const heapify = (array, n, i, animations) => {
 	if (r < n && array[r] > array[largest]) largest = r;
 
 	if (largest !== i) {
-		animations.push([ i, largest ]);
+		animations.push([ i, largest, array[i], array[largest] ]);
 		let temp = array[i];
 		array[i] = array[largest];
 		array[largest] = temp;

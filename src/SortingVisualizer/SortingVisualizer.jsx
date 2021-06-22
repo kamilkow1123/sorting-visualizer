@@ -6,7 +6,7 @@ import { getHeapSortAnimations } from '../SortingAlgorithms/heapSort.js';
 import { getQuickSortAnimations } from '../SortingAlgorithms/quickSort.js';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 10;
+const ANIMATION_SPEED_MS = 1;
 
 // Change this value for the number of bars in the array.
 const NUMBER_OF_ARRAY_BARS = 300;
@@ -53,14 +53,13 @@ export default class SortingVisualizer extends React.Component {
 					barOneStyle.backgroundColor = color;
 				}, i * ANIMATION_SPEED_MS);
 			} else if (animations[i].swap !== '') {
-				const [ barOneIdx, barTwoIdx ] = animations[i].swap;
+				const [ barOneIdx, barTwoIdx, barOneHeight, barTwoHeight ] = animations[i].swap;
 				const barOneStyle = arrayBars[barOneIdx].style;
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 
 				setTimeout(() => {
-					const temp = barOneStyle.height;
-					barOneStyle.height = barTwoStyle.height;
-					barTwoStyle.height = temp;
+					barOneStyle.height = `${barTwoHeight}px`;
+					barTwoStyle.height = `${barOneHeight}px`;
 				}, i * ANIMATION_SPEED_MS);
 			}
 		}
@@ -72,14 +71,13 @@ export default class SortingVisualizer extends React.Component {
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
 
-			const [ barOneIdx, barTwoIdx ] = animations[i];
+			const [ barOneIdx, barTwoIdx, barOneHeight, barTwoHeight ] = animations[i];
 			const barOneStyle = arrayBars[barOneIdx].style;
 			const barTwoStyle = arrayBars[barTwoIdx].style;
 
 			setTimeout(() => {
-				const temp = barOneStyle.height;
-				barOneStyle.height = barTwoStyle.height;
-				barTwoStyle.height = temp;
+				barOneStyle.height = `${barTwoHeight}px`;
+				barTwoStyle.height = `${barOneHeight}px`;
 			}, i * ANIMATION_SPEED_MS);
 		}
 	}
@@ -117,14 +115,13 @@ export default class SortingVisualizer extends React.Component {
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
 
-			const [ barOneIdx, barTwoIdx ] = animations[i];
+			const [ barOneIdx, barTwoIdx, barOneHeight, barTwoHeight ] = animations[i];
 			const barOneStyle = arrayBars[barOneIdx].style;
 			const barTwoStyle = arrayBars[barTwoIdx].style;
 
 			setTimeout(() => {
-				const temp = barOneStyle.height;
-				barOneStyle.height = barTwoStyle.height;
-				barTwoStyle.height = temp;
+				barOneStyle.height = `${barTwoHeight}px`;
+				barTwoStyle.height = `${barOneHeight}px`;
 			}, i * ANIMATION_SPEED_MS);
 		}
 	}
