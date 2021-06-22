@@ -16,20 +16,22 @@ const quickSort = (array, l, r, animations) => {
 const partition = (array, left, right, animations) => {
 	let pivot = array[right];
 	let i = left - 1;
+	animations.push({ pivot: [ right ], swap: '', first: true });
 
 	for (let j = left; j <= right - 1; j++) {
 		if (array[j] < pivot) {
 			i++;
-			animations.push([ i, j, array[i], array[j] ]);
+			animations.push({ pivot: '', swap: [ i, j, array[i], array[j] ] });
 			let temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
 		}
 	}
-	animations.push([ i + 1, right, array[i + 1], array[right] ]);
+	animations.push({ pivot: '', swap: [ i + 1, right, array[i + 1], array[right] ] });
 	let temp = array[i + 1];
 	array[i + 1] = array[right];
 	array[right] = temp;
+	animations.push({ pivot: [ right ], swap: '', first: false });
 
 	return i + 1;
 };

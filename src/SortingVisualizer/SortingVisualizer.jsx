@@ -15,7 +15,7 @@ const NUMBER_OF_ARRAY_BARS = 200;
 const PRIMARY_COLOR = '#fff';
 
 // This is the color of array bars that are being compared throughout the animations.
-const SECONDARY_COLOR = '#ff3131';
+const SECONDARY_COLOR = '#ff4992';
 
 export default class SortingVisualizer extends React.Component {
 	constructor(props) {
@@ -122,15 +122,23 @@ export default class SortingVisualizer extends React.Component {
 
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
+			if (animations[i].pivot !== '') {
+				const [ pivot ] = animations[i].pivot;
+				const pivotStyle = arrayBars[pivot].style;
+				const color = animations[i].first ? SECONDARY_COLOR : PRIMARY_COLOR;
+				setTimeout(() => {
+					pivotStyle.backgroundColor = color;
+				}, i * ANIMATION_SPEED_MS);
+			} else if (animations[i].swap !== '') {
+				const [ barOneIdx, barTwoIdx, barOneHeight, barTwoHeight ] = animations[i].swap;
+				const barOneStyle = arrayBars[barOneIdx].style;
+				const barTwoStyle = arrayBars[barTwoIdx].style;
 
-			const [ barOneIdx, barTwoIdx, barOneHeight, barTwoHeight ] = animations[i];
-			const barOneStyle = arrayBars[barOneIdx].style;
-			const barTwoStyle = arrayBars[barTwoIdx].style;
-
-			setTimeout(() => {
-				barOneStyle.height = `${barTwoHeight}px`;
-				barTwoStyle.height = `${barOneHeight}px`;
-			}, i * ANIMATION_SPEED_MS);
+				setTimeout(() => {
+					barOneStyle.height = `${barTwoHeight}px`;
+					barTwoStyle.height = `${barOneHeight}px`;
+				}, i * ANIMATION_SPEED_MS);
+			}
 		}
 	}
 
