@@ -9,7 +9,7 @@ import { getQuickSortAnimations } from '../SortingAlgorithms/quickSort.js';
 const ANIMATION_SPEED_MS = 10;
 
 // Change this value for the number of bars in the array.
-const NUMBER_OF_ARRAY_BARS = 200;
+// const NUMBER_OF_ARRAY_BARS = 200;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = '#fff';
@@ -27,12 +27,12 @@ export default class SortingVisualizer extends React.Component {
 	}
 
 	componentDidMount() {
-		this.resetArray();
+		this.resetArray(100);
 	}
 
-	resetArray() {
+	resetArray(size) {
 		const array = [];
-		for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
+		for (let i = 0; i < size; i++) {
 			array.push(randomIntFromInterval(5, 700));
 		}
 		this.setState({ array });
@@ -142,13 +142,17 @@ export default class SortingVisualizer extends React.Component {
 		}
 	}
 
+	sliderChange = (event) => {
+		this.resetArray(event.target.value);
+	};
+
 	render() {
 		const { array } = this.state;
 
 		return (
 			<div className="hero">
 				<nav className="navbar">
-					<button className="btn" onClick={() => this.resetArray()}>
+					<button className="btn" onClick={() => this.resetArray(this.state.array.length)}>
 						Generate New Array
 					</button>
 					<button className="btn" onClick={() => this.bubbleSort()}>
@@ -163,13 +167,27 @@ export default class SortingVisualizer extends React.Component {
 					<button className="btn" onClick={() => this.quickSort()}>
 						Quick Sort
 					</button>
+					<input
+						type="range"
+						min={20}
+						max={250}
+						step={10}
+						value={this.state.array.length}
+						id="arraySizeSlider"
+						className="slider"
+						onChange={this.sliderChange}
+					/>
 				</nav>
 				<div className="array-container">
 					{array.map((value, idx) => (
 						<div
 							className="array-bar"
 							key={idx}
-							style={{ backgroundColor: PRIMARY_COLOR, height: `${value}px` }}
+							style={{
+								backgroundColor : PRIMARY_COLOR,
+								height          : `${value}px`,
+								width           : `${750 / this.state.array.length}px`
+							}}
 						/>
 					))}
 				</div>
