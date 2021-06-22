@@ -3,6 +3,7 @@ import './SortingVisualizer.css';
 import { getMergeSortAnimations } from '../SortingAlgorithms/mergeSort.js';
 import { getBubbleSortAnimations } from '../SortingAlgorithms/bubbleSort.js';
 import { getHeapSortAnimations } from '../SortingAlgorithms/heapSort.js';
+import { getQuickSortAnimations } from '../SortingAlgorithms/quickSort.js';
 
 // Change this value for the speed of the animations.
 const ANIMATION_SPEED_MS = 10;
@@ -110,7 +111,23 @@ export default class SortingVisualizer extends React.Component {
 		}
 	}
 
-	quickSort() {}
+	quickSort() {
+		const animations = getQuickSortAnimations(this.state.array);
+
+		for (let i = 0; i < animations.length; i++) {
+			const arrayBars = document.getElementsByClassName('array-bar');
+
+			const [ barOneIdx, barTwoIdx ] = animations[i];
+			const barOneStyle = arrayBars[barOneIdx].style;
+			const barTwoStyle = arrayBars[barTwoIdx].style;
+
+			setTimeout(() => {
+				const temp = barOneStyle.height;
+				barOneStyle.height = barTwoStyle.height;
+				barTwoStyle.height = temp;
+			}, i * ANIMATION_SPEED_MS);
+		}
+	}
 
 	render() {
 		const { array } = this.state;
