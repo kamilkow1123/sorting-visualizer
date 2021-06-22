@@ -6,10 +6,10 @@ import { getHeapSortAnimations } from '../SortingAlgorithms/heapSort.js';
 import { getQuickSortAnimations } from '../SortingAlgorithms/quickSort.js';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 1;
+const ANIMATION_SPEED_MS = 10;
 
 // Change this value for the number of bars in the array.
-const NUMBER_OF_ARRAY_BARS = 300;
+const NUMBER_OF_ARRAY_BARS = 200;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = '#fff';
@@ -70,15 +70,23 @@ export default class SortingVisualizer extends React.Component {
 
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
+			const isColorChange = i % 3 !== 2;
 
 			const [ barOneIdx, barTwoIdx, barOneHeight, barTwoHeight ] = animations[i];
 			const barOneStyle = arrayBars[barOneIdx].style;
 			const barTwoStyle = arrayBars[barTwoIdx].style;
-
-			setTimeout(() => {
-				barOneStyle.height = `${barTwoHeight}px`;
-				barTwoStyle.height = `${barOneHeight}px`;
-			}, i * ANIMATION_SPEED_MS);
+			if (isColorChange) {
+				const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+				setTimeout(() => {
+					barOneStyle.backgroundColor = color;
+					barTwoStyle.backgroundColor = color;
+				}, i * ANIMATION_SPEED_MS);
+			} else {
+				setTimeout(() => {
+					barOneStyle.height = `${barTwoHeight}px`;
+					barTwoStyle.height = `${barOneHeight}px`;
+				}, i * ANIMATION_SPEED_MS);
+			}
 		}
 	}
 
