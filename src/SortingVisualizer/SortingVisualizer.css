@@ -45,6 +45,11 @@
 	margin-right: 5rem;
 }
 
+.btn:disabled {
+	background: #a7a7a7;
+	cursor: default;
+}
+
 .slider {
 	appearance: none;
 	width: 120px;
@@ -57,8 +62,17 @@
 	margin: 0.5rem;
 }
 
+.slider:disabled {
+	background: #a7a7a7;
+	cursor: default;
+}
+
 .slider:hover {
 	opacity: 1;
+}
+
+.slider:disabled:hover {
+	opacity: 0.8;
 }
 
 .slider::-webkit-slider-thumb {
@@ -76,4 +90,14 @@
 	background: #ff4992;
 	border-radius: 50%;
 	cursor: pointer;
+}
+
+.slider:disabled::-webkit-slider-thumb {
+	background: #a7a7a7;
+	cursor: default;
+}
+
+.slider:disabled::-moz-range-thumb {
+	background: #a7a7a7;
+	cursor: default;
 }
