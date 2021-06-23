@@ -51,6 +51,7 @@
 }
 
 .slider {
+	align-self: flex-start;
 	appearance: none;
 	width: 120px;
 	height: 12px;
@@ -59,7 +60,22 @@
 	transition: opacity 0.2s ease;
 	border-radius: 8px;
 	box-shadow: 0px 1px 10px 1px black;
-	margin: 0.5rem;
+	margin: 0.7rem;
+	position: relative;
+}
+
+.slider:before {
+	content: 'Array Size';
+	position: absolute;
+	top: 20px;
+	color: white;
+}
+
+.slider:last-child:before {
+	content: 'Speed';
+	position: absolute;
+	top: 20px;
+	color: white;
 }
 
 .slider:disabled {

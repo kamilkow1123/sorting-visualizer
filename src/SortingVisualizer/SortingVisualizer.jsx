@@ -30,7 +30,7 @@ export default class SortingVisualizer extends React.Component {
 	}
 
 	componentDidMount() {
-		this.resetArray(100);
+		this.resetArray(150);
 	}
 
 	resetArray(size) {
