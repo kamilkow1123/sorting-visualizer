@@ -4,9 +4,13 @@
 	padding: 0;
 }
 
+/* body {
+	background: #000;
+} */
+
 .hero {
 	background: #000;
-	height: 100%;
+	min-height: 100vh;
 	width: 100%;
 }
 
@@ -37,11 +41,12 @@
 	background: #fff;
 	width: 22%;
 	height: max-content;
-	/* min-height: 50px; */
+	min-height: 50px;
 	padding: 10px;
 	margin: 0.5rem 0;
 	cursor: pointer;
 	border-radius: 10px;
+	transition: all 0.5s ease;
 }
 
 .btn:first-child {
@@ -62,6 +67,7 @@
 	outline: none;
 	border-radius: 8px;
 	position: relative;
+	transition: all 0.5s ease;
 }
 
 .slider::before {
@@ -108,6 +114,23 @@
 .slider:disabled::-moz-range-thumb {
 	background: #a7a7a7;
 	cursor: default;
+}
+
+@media (max-width: 1000px) {
+	.btn:disabled {
+		min-height: 0;
+		height: 0;
+		margin: 0;
+		padding: 0;
+		transform: translateY(-300px);
+	}
+
+	.slider:disabled {
+		height: 0;
+		margin: 0;
+		padding: 0;
+		transform: translateY(-300px);
+	}
 }
 
 @media (min-width: 1000px) {
