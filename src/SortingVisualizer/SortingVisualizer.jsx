@@ -1,5 +1,5 @@
 import React from 'react';
-import './SortingVisualizer2.css';
+import './SortingVisualizer.css';
 import { getMergeSortAnimations } from '../SortingAlgorithms/mergeSort.js';
 import { getBubbleSortAnimations } from '../SortingAlgorithms/bubbleSort.js';
 import { getHeapSortAnimations } from '../SortingAlgorithms/heapSort.js';
@@ -31,12 +31,17 @@ class SortingVisualizer extends React.Component {
 	}
 
 	componentDidMount() {
-		this.resetArray(50);
+		this.resetArray(70);
 	}
 
 	resetArray(size) {
 		const array = [];
-		let maxValue = this.props.screenWidth * 0.8;
+		let maxValue;
+		if (this.props.screenWidth < 1000) {
+			maxValue = this.props.screenWidth * 0.8;
+		} else {
+			maxValue = 650;
+		}
 
 		for (let i = 0; i < size; i++) {
 			array.push(randomIntFromInterval(5, maxValue));
@@ -56,6 +61,7 @@ class SortingVisualizer extends React.Component {
 
 	bubbleSort = () => {
 		const animations = getBubbleSortAnimations(this.state.array);
+		let isMobile = this.props.screenWidth < 1000 ? true : false;
 
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
@@ -76,8 +82,14 @@ class SortingVisualizer extends React.Component {
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 
 				setTimeout(() => {
-					barOneStyle.width = `${barTwoValue}px`;
-					barTwoStyle.width = `${barOneValue}px`;
+					if (isMobile) {
+						barOneStyle.width = `${barTwoValue}px`;
+						barTwoStyle.width = `${barOneValue}px`;
+					} else {
+						barOneStyle.height = `${barTwoValue}px`;
+						barTwoStyle.height = `${barOneValue}px`;
+					}
+
 					if (lastOne) this.enableButtons();
 				}, i * this.state.animationSpeed);
 			}
@@ -86,6 +98,7 @@ class SortingVisualizer extends React.Component {
 
 	heapSort = () => {
 		const animations = getHeapSortAnimations(this.state.array);
+		let isMobile = this.props.screenWidth < 1000 ? true : false;
 
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
@@ -104,8 +117,14 @@ class SortingVisualizer extends React.Component {
 				}, i * this.state.animationSpeed);
 			} else {
 				setTimeout(() => {
-					barOneStyle.width = `${barTwoValue}px`;
-					barTwoStyle.width = `${barOneValue}px`;
+					if (isMobile) {
+						barOneStyle.width = `${barTwoValue}px`;
+						barTwoStyle.width = `${barOneValue}px`;
+					} else {
+						barOneStyle.height = `${barTwoValue}px`;
+						barTwoStyle.height = `${barOneValue}px`;
+					}
+
 					if (lastOne) this.enableButtons();
 				}, i * this.state.animationSpeed);
 			}
@@ -114,6 +133,7 @@ class SortingVisualizer extends React.Component {
 
 	mergeSort = () => {
 		const animations = getMergeSortAnimations(this.state.array);
+		let isMobile = this.props.screenWidth < 1000 ? true : false;
 
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
@@ -135,7 +155,9 @@ class SortingVisualizer extends React.Component {
 				setTimeout(() => {
 					const [ barOneIdx, newValue ] = animations[i];
 					const barOneStyle = arrayBars[barOneIdx].style;
-					barOneStyle.width = `${newValue}px`;
+					if (isMobile) barOneStyle.width = `${newValue}px`;
+					else barOneStyle.height = `${newValue}px`;
+
 					if (lastOne) this.enableButtons();
 				}, i * this.state.animationSpeed);
 			}
@@ -144,6 +166,7 @@ class SortingVisualizer extends React.Component {
 
 	quickSort = () => {
 		const animations = getQuickSortAnimations(this.state.array);
+		let isMobile = this.props.screenWidth < 1000 ? true : false;
 
 		for (let i = 0; i < animations.length; i++) {
 			const arrayBars = document.getElementsByClassName('array-bar');
@@ -162,8 +185,14 @@ class SortingVisualizer extends React.Component {
 				const barTwoStyle = arrayBars[barTwoIdx].style;
 
 				setTimeout(() => {
-					barOneStyle.width = `${barTwoValue}px`;
-					barTwoStyle.width = `${barOneValue}px`;
+					if (isMobile) {
+						barOneStyle.width = `${barTwoValue}px`;
+						barTwoStyle.width = `${barOneValue}px`;
+					} else {
+						barOneStyle.height = `${barTwoValue}px`;
+						barTwoStyle.height = `${barOneValue}px`;
+					}
+
 					if (lastOne) this.enableButtons();
 				}, i * this.state.animationSpeed);
 			}
@@ -222,7 +251,7 @@ class SortingVisualizer extends React.Component {
 					<input
 						type="range"
 						min={20}
-						max={120}
+						max={this.props.screenWidth < 1000 ? 120 : 200}
 						step={5}
 						value={this.state.array.length}
 						className="slider"
@@ -247,8 +276,12 @@ class SortingVisualizer extends React.Component {
 							key={idx}
 							style={{
 								backgroundColor : PRIMARY_COLOR,
-								width           : `${value}px`,
-								height          : `${400 / this.state.array.length}px`
+								width           : `${this.props.screenWidth < 1000
+									? value
+									: 700 / this.state.array.length}px`,
+								height          : `${this.props.screenWidth < 1000
+									? 400 / this.state.array.length
+									: value}px`
 							}}
 						/>
 					))}
