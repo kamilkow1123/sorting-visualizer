@@ -51,14 +51,18 @@ class SortingVisualizer extends React.Component {
 	}
 
 	enableButtons = () => {
-		$('body').unbind('touchmove');
+		document.ontouchmove = function(e) {
+			return true;
+		};
+
 		this.setState({ disabledButtons: false });
 	};
 
 	disableButtons = (algorithm) => {
-		$('body').bind('touchmove', function(e) {
+		document.ontouchmove = function(e) {
 			e.preventDefault();
-		});
+		};
+
 		this.setState({ disabledButtons: true }, () => {
 			algorithm();
 		});
@@ -300,16 +304,16 @@ function randomIntFromInterval(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function disableScrolling() {
-	// var x = window.scrollX;
-	// var y = window.scrollY;
-	window.onscroll = function() {
-		window.scrollTo(0, 0);
-	};
-}
+// function disableScrolling() {
+// 	// var x = window.scrollX;
+// 	// var y = window.scrollY;
+// 	window.onscroll = function() {
+// 		window.scrollTo(0, 0);
+// 	};
+// }
 
-function enableScrolling() {
-	window.onscroll = function() {};
-}
+// function enableScrolling() {
+// 	window.onscroll = function() {};
+// }
 
 export default withHooksHOC(SortingVisualizer);
